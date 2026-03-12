@@ -11,21 +11,49 @@
 <style>
 
 :root{
---primary:#F4A300;
---accent:#FFD166;
---dark:#1F1F1F;
---bg:#FFF8EE;
+--primary:#F5A623;
+--bg:#FFF7ED;
+--dark:#2d2d2d;
 }
 
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
+font-family:Poppins,sans-serif;
 }
 
 body{
-margin:0;
-font-family:'Poppins',sans-serif;
 background:var(--bg);
 color:var(--dark);
+overflow-x:hidden;
+}
+
+/* LOADER */
+
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:#FFF7ED;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+.spinner{
+width:60px;
+height:60px;
+border:6px solid #FFD166;
+border-top:6px solid #F5A623;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+100%{transform:rotate(360deg)}
 }
 
 /* NAVBAR */
@@ -34,7 +62,7 @@ header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:18px 40px;
+padding:20px 50px;
 background:white;
 box-shadow:0 4px 20px rgba(0,0,0,0.05);
 position:sticky;
@@ -44,32 +72,20 @@ z-index:100;
 
 nav a{
 margin-left:20px;
-text-decoration:none;
-font-weight:500;
-color:#333;
 cursor:pointer;
+text-decoration:none;
+color:#333;
+font-weight:500;
 }
 
 nav a:hover{
 color:var(--primary);
 }
 
-/* BUTTON */
-
-button{
-padding:12px 20px;
-border:none;
-border-radius:30px;
-background:var(--primary);
-color:white;
+.menu-btn{
+display:none;
+font-size:28px;
 cursor:pointer;
-font-weight:600;
-transition:0.3s;
-}
-
-button:hover{
-transform:translateY(-3px);
-box-shadow:0 8px 18px rgba(0,0,0,0.2);
 }
 
 /* HERO */
@@ -78,45 +94,72 @@ box-shadow:0 8px 18px rgba(0,0,0,0.2);
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:80px 60px;
+padding:90px 60px;
 max-width:1200px;
 margin:auto;
 }
 
 .hero img{
-width:350px;
+width:340px;
 animation:float 4s infinite ease-in-out;
 }
 
 @keyframes float{
-0%{transform:translateY(0)}
 50%{transform:translateY(-15px)}
-100%{transform:translateY(0)}
+}
+
+/* BUTTON */
+
+button{
+background:var(--primary);
+border:none;
+padding:12px 22px;
+border-radius:30px;
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 18px rgba(0,0,0,.2);
+}
+
+/* FILTERS */
+
+.filters{
+text-align:center;
+margin-top:20px;
+}
+
+.filters button{
+margin:5px;
 }
 
 /* MENU */
 
 .menu{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:30px;
-padding:50px;
 max-width:1100px;
 margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+padding:50px;
 }
 
 .card{
 background:white;
-border-radius:20px;
 padding:20px;
+border-radius:18px;
 text-align:center;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-transition:0.3s;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+transition:.3s;
 }
 
 .card:hover{
 transform:translateY(-10px);
-box-shadow:0 18px 40px rgba(0,0,0,0.15);
+box-shadow:0 20px 40px rgba(0,0,0,.15);
 }
 
 .card img{
@@ -125,18 +168,61 @@ height:150px;
 object-fit:contain;
 }
 
-/* CART PANEL */
+/* STEPS */
+
+.steps{
+padding:60px;
+text-align:center;
+}
+
+.steps-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+margin-top:30px;
+}
+
+.step{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+/* TESTIMONIALS */
+
+.testimonials{
+padding:60px;
+background:#fff3e6;
+text-align:center;
+}
+
+.test-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.test{
+background:white;
+padding:20px;
+border-radius:14px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+/* CART */
 
 .cart{
 position:fixed;
-right:-380px;
+right:-360px;
 top:0;
-width:350px;
+width:340px;
 height:100%;
 background:white;
 padding:20px;
-box-shadow:-10px 0 25px rgba(0,0,0,0.2);
-transition:0.4s;
+box-shadow:-10px 0 25px rgba(0,0,0,.2);
+transition:.4s;
 overflow:auto;
 }
 
@@ -146,22 +232,37 @@ right:0;
 
 /* LOGIN MODAL */
 
-.modal{
+.overlay{
 display:none;
 position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+width:100%;
+height:100%;
+background:rgba(0,0,0,.4);
+top:0;
+left:0;
+justify-content:center;
+align-items:center;
+}
+
+.modal{
 background:white;
 padding:30px;
 border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
+width:300px;
+position:relative;
+}
+
+.close{
+position:absolute;
+top:10px;
+right:12px;
+cursor:pointer;
 }
 
 .modal input{
 width:100%;
 padding:10px;
-margin:6px 0;
+margin:8px 0;
 }
 
 /* DELIVERY */
@@ -172,20 +273,18 @@ text-align:center;
 padding:50px;
 }
 
-.progress{
-width:80%;
+.bar-bg{
+width:70%;
 height:12px;
 background:#eee;
-margin:30px auto;
+margin:20px auto;
 border-radius:10px;
-position:relative;
 }
 
 .bar{
 height:100%;
 width:0%;
 background:var(--primary);
-border-radius:10px;
 }
 
 /* FOOTER */
@@ -194,7 +293,36 @@ footer{
 text-align:center;
 padding:25px;
 background:white;
-margin-top:50px;
+margin-top:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.menu-btn{display:block;}
+
+nav{display:none;}
+
+nav.show{
+display:flex;
+flex-direction:column;
+position:absolute;
+top:70px;
+right:20px;
+background:white;
+padding:20px;
+}
+
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.hero img{
+margin-top:30px;
+}
+
 }
 
 </style>
@@ -203,21 +331,23 @@ margin-top:50px;
 
 <body>
 
+<div id="loader">
+<div class="spinner"></div>
+<p>Loading Food Express...</p>
+</div>
+
 <header>
 
-<h2 style="color:#F4A300">Food Express</h2>
+<h2 style="color:#F5A623">Food Express</h2>
 
-<nav>
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
 
-<a onclick="scrollToMenu()">Menu</a>
+<nav id="nav">
 
-<a onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</a>
-
+<a onclick="scrollMenu()">Menu</a>
+<a onclick="toggleCart()">Cart (<span id="count">0</span>)</a>
 <a onclick="openLogin()">Login</a>
-
-<a onclick="openSignup()">Register</a>
-
-<a onclick="logout()">Logout</a>
+<a onclick="openRegister()">Register</a>
 
 </nav>
 
@@ -227,11 +357,10 @@ margin-top:50px;
 
 <div>
 
-<h1>Delicious Food Delivered Fast</h1>
+<h1>Fresh Food Delivered Fast</h1>
+<p>Order delicious meals online</p>
 
-<p>Order your favorite meals from Food Express</p>
-
-<button onclick="scrollToMenu()">Browse Menu</button>
+<button onclick="scrollMenu()">Browse Menu</button>
 
 </div>
 
@@ -239,135 +368,125 @@ margin-top:50px;
 
 </section>
 
-<h2 style="text-align:center">Popular Dishes</h2>
+<div class="filters">
 
-<section class="menu" id="menu">
+<button onclick="filterFood('all')">All</button>
+<button onclick="filterFood('burger')">Burger</button>
+<button onclick="filterFood('pizza')">Pizza</button>
+<button onclick="filterFood('pasta')">Pasta</button>
 
-<div class="card">
+</div>
 
+<div class="menu" id="menu">
+
+<div class="card burger">
 <img src="burger.png">
-
 <h3>Burger</h3>
-
 <p>$8</p>
-
-<button onclick="addToCart('Burger',8)">Add to Cart</button>
-
+<button onclick="addCart('Burger',8)">Add</button>
 </div>
 
-<div class="card">
-
+<div class="card pizza">
 <img src="pizza.png">
-
 <h3>Pizza</h3>
-
 <p>$12</p>
-
-<button onclick="addToCart('Pizza',12)">Add to Cart</button>
-
+<button onclick="addCart('Pizza',12)">Add</button>
 </div>
 
-<div class="card">
-
+<div class="card pasta">
 <img src="pasta.png">
-
 <h3>Pasta</h3>
-
 <p>$9</p>
+<button onclick="addCart('Pasta',9)">Add</button>
+</div>
 
-<button onclick="addToCart('Pasta',9)">Add to Cart</button>
+<div class="card burger">
+<img src="chicken.png">
+<h3>Chicken</h3>
+<p>$10</p>
+<button onclick="addCart('Chicken',10)">Add</button>
+</div>
 
 </div>
 
-<div class="card">
+<section class="steps">
 
-<img src="chicken.png">
+<h2>How It Works</h2>
 
-<h3>Chicken</h3>
+<div class="steps-grid">
 
-<p>$10</p>
-
-<button onclick="addToCart('Chicken',10)">Add to Cart</button>
+<div class="step">🍔 Choose your food</div>
+<div class="step">🛒 Add to cart</div>
+<div class="step">🚚 Fast delivery</div>
 
 </div>
 
 </section>
 
-<div class="cart" id="cartPanel">
+<section class="testimonials">
+
+<h2>Customer Reviews</h2>
+
+<div class="test-grid">
+
+<div class="test">⭐⭐⭐⭐⭐<br>Great food and fast delivery!</div>
+<div class="test">⭐⭐⭐⭐⭐<br>Best pizza I ordered online.</div>
+<div class="test">⭐⭐⭐⭐⭐<br>Very smooth ordering experience.</div>
+
+</div>
+
+</section>
+
+<div class="cart" id="cart">
 
 <h2>Your Cart</h2>
 
-<div id="cartItems"></div>
+<div id="items"></div>
 
-<h3>Total: $<span id="total">0</span></h3>
-
-<h3>Checkout</h3>
+<h3>Total $<span id="total">0</span></h3>
 
 <input placeholder="Name">
-
 <input placeholder="Address">
-
 <input placeholder="Phone">
 
-<select>
+<button onclick="order()">Place Order</button>
 
-<option>Cash on Delivery</option>
-
-<option>UPI</option>
-
-<option>Card</option>
-
-</select>
-
-<br><br>
-
-<button onclick="placeOrder()">Place Order</button>
-
-<p id="success" style="display:none;color:green;">Order Confirmed 🎉</p>
+<p id="msg" style="display:none;color:green">Order Confirmed 🎉</p>
 
 </div>
 
 <div id="tracker">
 
-<h2>Delivery in Progress 🚚</h2>
+<h2>Delivery Status</h2>
 
-<div class="progress">
+<div class="bar-bg">
+<div class="bar" id="bar"></div>
+</div>
 
-<div class="bar" id="progress"></div>
+<p id="status">Preparing Food</p>
 
 </div>
 
-<p id="statusText">Preparing Food...</p>
+<div class="overlay" id="overlay">
+
+<div class="modal">
+
+<span class="close" onclick="closeModal()">✖</span>
+
+<h3 id="modalTitle"></h3>
+
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+
+<button onclick="submitAuth()">Submit</button>
 
 </div>
-
-<div class="modal" id="loginBox">
-
-<h3>Login</h3>
-
-<input id="loginEmail" placeholder="Email">
-
-<input id="loginPass" type="password" placeholder="Password">
-
-<button onclick="login()">Login</button>
-
-</div>
-
-<div class="modal" id="signupBox">
-
-<h3>Register</h3>
-
-<input id="signupEmail" placeholder="Email">
-
-<input id="signupPass" type="password" placeholder="Password">
-
-<button onclick="signup()">Create Account</button>
 
 </div>
 
 <footer>
 
-<p>User: <span id="profile">Guest</span></p>
+<p>User: <span id="user">Guest</span></p>
 
 <p>© 2026 Food Express</p>
 
@@ -375,40 +494,61 @@ margin-top:50px;
 
 <script>
 
+window.onload=()=>setTimeout(()=>loader.style.display="none",1200)
+
 let cart=[]
+let mode="login"
 
-function scrollToMenu(){
-
-document.getElementById("menu").scrollIntoView()
-
+function toggleMenu(){
+nav.classList.toggle("show")
 }
 
-function addToCart(name,price){
-
-cart.push({name,price})
-
-updateCart()
-
+function scrollMenu(){
+menu.scrollIntoView({behavior:"smooth"})
 }
 
-function updateCart(){
+function filterFood(type){
 
-let cartItems=document.getElementById("cartItems")
+document.querySelectorAll(".card").forEach(c=>{
 
-let total=0
-
-cartItems.innerHTML=""
-
-cart.forEach((item,i)=>{
-
-total+=item.price
-
-cartItems.innerHTML+=`<p>${item.name} - $${item.price} <button onclick="removeItem(${i})">X</button></p>`
+if(type==="all"||c.classList.contains(type))
+c.style.display="block"
+else
+c.style.display="none"
 
 })
 
-document.getElementById("cartCount").innerText=cart.length
+}
 
+function toggleCart(){
+cartEl.classList.toggle("open")
+}
+
+const cartEl=document.getElementById("cart")
+
+function addCart(name,price){
+
+cart.push({name,price})
+
+update()
+
+}
+
+function update(){
+
+items.innerHTML=""
+
+let total=0
+
+cart.forEach((i,x)=>{
+
+total+=i.price
+
+items.innerHTML+=`${i.name} - $${i.price} <button onclick="removeItem(${x})">x</button><br>`
+
+})
+
+count.innerText=cart.length
 document.getElementById("total").innerText=total
 
 }
@@ -417,19 +557,13 @@ function removeItem(i){
 
 cart.splice(i,1)
 
-updateCart()
+update()
 
 }
 
-function toggleCart(){
+function order(){
 
-document.getElementById("cartPanel").classList.toggle("open")
-
-}
-
-function placeOrder(){
-
-document.getElementById("success").style.display="block"
+msg.style.display="block"
 
 startDelivery()
 
@@ -437,79 +571,76 @@ startDelivery()
 
 function startDelivery(){
 
-document.getElementById("tracker").style.display="block"
+tracker.style.display="block"
 
-let progress=0
+let p=0
 
-let bar=document.getElementById("progress")
+let x=setInterval(()=>{
 
-let text=document.getElementById("statusText")
+p+=10
 
-let interval=setInterval(()=>{
+bar.style.width=p+"%"
 
-progress+=10
+if(p==40) status.innerText="Cooking"
 
-bar.style.width=progress+"%"
+if(p==70) status.innerText="Out for delivery"
 
-if(progress==40) text.innerText="Cooking your food"
+if(p>=100){
 
-if(progress==70) text.innerText="Out for delivery"
+status.innerText="Delivered 🍔"
 
-if(progress>=100){
-
-text.innerText="Delivered! Enjoy 🍔"
-
-clearInterval(interval)
+clearInterval(x)
 
 }
 
-},800)
+},700)
 
 }
 
 function openLogin(){
 
-document.getElementById("loginBox").style.display="block"
+mode="login"
+
+modalTitle.innerText="Login"
+
+overlay.style.display="flex"
 
 }
 
-function openSignup(){
+function openRegister(){
 
-document.getElementById("signupBox").style.display="block"
+mode="register"
+
+modalTitle.innerText="Register"
+
+overlay.style.display="flex"
 
 }
 
-function signup(){
+function closeModal(){
+overlay.style.display="none"
+}
 
-let email=document.getElementById("signupEmail").value
+function submitAuth(){
 
-let pass=document.getElementById("signupPass").value
+let email=document.getElementById("email").value
+let pass=document.getElementById("pass").value
+
+if(mode==="register"){
 
 localStorage.setItem(email,pass)
 
 alert("Account created")
 
-document.getElementById("signupBox").style.display="none"
+}else{
 
-}
+if(localStorage.getItem(email)===pass){
 
-function login(){
-
-let email=document.getElementById("loginEmail").value
-
-let pass=document.getElementById("loginPass").value
-
-if(localStorage.getItem(email)==pass){
-
-document.getElementById("profile").innerText=email
+user.innerText=email
 
 alert("Login successful")
 
-document.getElementById("loginBox").style.display="none"
-
-}
-
-else{
+}else{
 
 alert("Wrong login")
 
@@ -517,14 +648,11 @@ alert("Wrong login")
 
 }
 
-function logout(){
-
-document.getElementById("profile").innerText="Guest"
+closeModal()
 
 }
 
 </script>
 
 </body>
-
 </html>
