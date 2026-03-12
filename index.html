@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
 
 <title>Food Express</title>
@@ -12,59 +10,81 @@
 
 <style>
 
+:root{
+--primary:#F4A300;
+--accent:#FFD166;
+--dark:#1F1F1F;
+--bg:#FFF8EE;
+}
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(270deg,#0f0f0f,#1b1b1b,#121212);
-background-size:600% 600%;
-animation:bgMove 18s ease infinite;
-color:white;
+background:var(--bg);
+color:var(--dark);
 }
 
-.light{
-background:white;
-color:black;
-}
-
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
+/* NAVBAR */
 
 header{
-background:#111;
-padding:18px 40px;
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:18px 40px;
+background:white;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+position:sticky;
+top:0;
+z-index:100;
 }
 
 nav a{
-margin-left:18px;
-color:#f7b500;
-cursor:pointer;
+margin-left:20px;
 text-decoration:none;
+font-weight:500;
+color:#333;
+cursor:pointer;
 }
 
+nav a:hover{
+color:var(--primary);
+}
+
+/* BUTTON */
+
 button{
-padding:10px 18px;
+padding:12px 20px;
 border:none;
-border-radius:6px;
-background:#f7b500;
+border-radius:30px;
+background:var(--primary);
+color:white;
 cursor:pointer;
 font-weight:600;
+transition:0.3s;
 }
+
+button:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 18px rgba(0,0,0,0.2);
+}
+
+/* HERO */
 
 .hero{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:60px;
+padding:80px 60px;
+max-width:1200px;
+margin:auto;
 }
 
 .hero img{
-width:320px;
+width:350px;
 animation:float 4s infinite ease-in-out;
 }
 
@@ -74,36 +94,29 @@ animation:float 4s infinite ease-in-out;
 100%{transform:translateY(0)}
 }
 
-.search{
-text-align:center;
-margin:25px;
-}
-
-.search input{
-padding:12px;
-width:250px;
-border-radius:6px;
-border:none;
-}
+/* MENU */
 
 .menu{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-padding:40px;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:30px;
+padding:50px;
+max-width:1100px;
+margin:auto;
 }
 
 .card{
-background:rgba(255,255,255,0.05);
-border-radius:14px;
-padding:18px;
+background:white;
+border-radius:20px;
+padding:20px;
 text-align:center;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
 transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-8px);
-box-shadow:0 0 18px rgba(247,181,0,0.7);
+transform:translateY(-10px);
+box-shadow:0 18px 40px rgba(0,0,0,0.15);
 }
 
 .card img{
@@ -112,116 +125,311 @@ height:150px;
 object-fit:contain;
 }
 
-.rating span{
-cursor:pointer;
-}
+/* CART PANEL */
 
-.cartPanel{
+.cart{
 position:fixed;
 right:-380px;
 top:0;
-width:340px;
+width:350px;
 height:100%;
-background:#111;
+background:white;
 padding:20px;
+box-shadow:-10px 0 25px rgba(0,0,0,0.2);
 transition:0.4s;
 overflow:auto;
 }
 
-.cartPanel.open{
+.cart.open{
 right:0;
 }
 
-.checkout input{
-width:100%;
-padding:8px;
-margin:5px 0;
-}
-
-.success{
-display:none;
-font-size:20px;
-color:#f7b500;
-}
+/* LOGIN MODAL */
 
 .modal{
 display:none;
 position:fixed;
-top:30%;
+top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-background:#111;
+background:white;
 padding:30px;
 border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
 
-.loader{
-position:fixed;
+.modal input{
 width:100%;
-height:100%;
-background:#0f0f0f;
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999;
+padding:10px;
+margin:6px 0;
 }
+
+/* DELIVERY */
 
 #tracker{
 display:none;
 text-align:center;
-padding:40px;
+padding:50px;
 }
 
+.progress{
+width:80%;
+height:12px;
+background:#eee;
+margin:30px auto;
+border-radius:10px;
+position:relative;
+}
+
+.bar{
+height:100%;
+width:0%;
+background:var(--primary);
+border-radius:10px;
+}
+
+/* FOOTER */
+
 footer{
-background:#111;
 text-align:center;
-padding:20px;
+padding:25px;
+background:white;
+margin-top:50px;
 }
 
 </style>
 
+</head>
+
+<body>
+
+<header>
+
+<h2 style="color:#F4A300">Food Express</h2>
+
+<nav>
+
+<a onclick="scrollToMenu()">Menu</a>
+
+<a onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</a>
+
+<a onclick="openLogin()">Login</a>
+
+<a onclick="openSignup()">Register</a>
+
+<a onclick="logout()">Logout</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<div>
+
+<h1>Delicious Food Delivered Fast</h1>
+
+<p>Order your favorite meals from Food Express</p>
+
+<button onclick="scrollToMenu()">Browse Menu</button>
+
+</div>
+
+<img src="delivery1.png">
+
+</section>
+
+<h2 style="text-align:center">Popular Dishes</h2>
+
+<section class="menu" id="menu">
+
+<div class="card">
+
+<img src="burger.png">
+
+<h3>Burger</h3>
+
+<p>$8</p>
+
+<button onclick="addToCart('Burger',8)">Add to Cart</button>
+
+</div>
+
+<div class="card">
+
+<img src="pizza.png">
+
+<h3>Pizza</h3>
+
+<p>$12</p>
+
+<button onclick="addToCart('Pizza',12)">Add to Cart</button>
+
+</div>
+
+<div class="card">
+
+<img src="pasta.png">
+
+<h3>Pasta</h3>
+
+<p>$9</p>
+
+<button onclick="addToCart('Pasta',9)">Add to Cart</button>
+
+</div>
+
+<div class="card">
+
+<img src="chicken.png">
+
+<h3>Chicken</h3>
+
+<p>$10</p>
+
+<button onclick="addToCart('Chicken',10)">Add to Cart</button>
+
+</div>
+
+</section>
+
+<div class="cart" id="cartPanel">
+
+<h2>Your Cart</h2>
+
+<div id="cartItems"></div>
+
+<h3>Total: $<span id="total">0</span></h3>
+
+<h3>Checkout</h3>
+
+<input placeholder="Name">
+
+<input placeholder="Address">
+
+<input placeholder="Phone">
+
+<select>
+
+<option>Cash on Delivery</option>
+
+<option>UPI</option>
+
+<option>Card</option>
+
+</select>
+
+<br><br>
+
+<button onclick="placeOrder()">Place Order</button>
+
+<p id="success" style="display:none;color:green;">Order Confirmed 🎉</p>
+
+</div>
+
+<div id="tracker">
+
+<h2>Delivery in Progress 🚚</h2>
+
+<div class="progress">
+
+<div class="bar" id="progress"></div>
+
+</div>
+
+<p id="statusText">Preparing Food...</p>
+
+</div>
+
+<div class="modal" id="loginBox">
+
+<h3>Login</h3>
+
+<input id="loginEmail" placeholder="Email">
+
+<input id="loginPass" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<div class="modal" id="signupBox">
+
+<h3>Register</h3>
+
+<input id="signupEmail" placeholder="Email">
+
+<input id="signupPass" type="password" placeholder="Password">
+
+<button onclick="signup()">Create Account</button>
+
+</div>
+
+<footer>
+
+<p>User: <span id="profile">Guest</span></p>
+
+<p>© 2026 Food Express</p>
+
+</footer>
+
 <script>
 
 let cart=[]
-let orders=[]
 
-function addToCart(name,price){
-cart.push({name,price})
-updateCart()
+function scrollToMenu(){
+
+document.getElementById("menu").scrollIntoView()
+
 }
 
-function removeItem(i){
-cart.splice(i,1)
+function addToCart(name,price){
+
+cart.push({name,price})
+
 updateCart()
+
 }
 
 function updateCart(){
 
 let cartItems=document.getElementById("cartItems")
+
+let total=0
+
 cartItems.innerHTML=""
 
 cart.forEach((item,i)=>{
-cartItems.innerHTML +=
-"<p>"+item.name+" - $"+item.price+
-" <button onclick='removeItem("+i+")'>X</button></p>"
+
+total+=item.price
+
+cartItems.innerHTML+=`<p>${item.name} - $${item.price} <button onclick="removeItem(${i})">X</button></p>`
+
 })
 
 document.getElementById("cartCount").innerText=cart.length
 
+document.getElementById("total").innerText=total
+
+}
+
+function removeItem(i){
+
+cart.splice(i,1)
+
+updateCart()
+
 }
 
 function toggleCart(){
+
 document.getElementById("cartPanel").classList.toggle("open")
+
 }
 
 function placeOrder(){
 
-orders.push([...cart])
-cart=[]
-updateCart()
-
 document.getElementById("success").style.display="block"
-document.getElementById("tracker").style.display="block"
 
 startDelivery()
 
@@ -229,9 +437,12 @@ startDelivery()
 
 function startDelivery(){
 
+document.getElementById("tracker").style.display="block"
+
 let progress=0
+
 let bar=document.getElementById("progress")
-let scooter=document.getElementById("scooter")
+
 let text=document.getElementById("statusText")
 
 let interval=setInterval(()=>{
@@ -239,51 +450,39 @@ let interval=setInterval(()=>{
 progress+=10
 
 bar.style.width=progress+"%"
-scooter.style.left=progress+"%"
 
-if(progress==30) text.innerText="Restaurant preparing food"
-if(progress==60) text.innerText="Delivery picked up food"
-if(progress==90) text.innerText="Almost there"
+if(progress==40) text.innerText="Cooking your food"
+
+if(progress==70) text.innerText="Out for delivery"
 
 if(progress>=100){
+
 text.innerText="Delivered! Enjoy 🍔"
+
 clearInterval(interval)
+
 }
 
 },800)
 
 }
 
-function searchFood(){
-
-let input=document.getElementById("searchInput").value.toLowerCase()
-
-document.querySelectorAll(".card").forEach(card=>{
-
-if(card.innerText.toLowerCase().includes(input))
-card.style.display="block"
-else
-card.style.display="none"
-
-})
-
-}
-
-function toggleTheme(){
-document.body.classList.toggle("light")
-}
-
 function openLogin(){
+
 document.getElementById("loginBox").style.display="block"
+
 }
 
 function openSignup(){
+
 document.getElementById("signupBox").style.display="block"
+
 }
 
 function signup(){
 
 let email=document.getElementById("signupEmail").value
+
 let pass=document.getElementById("signupPass").value
 
 localStorage.setItem(email,pass)
@@ -297,17 +496,20 @@ document.getElementById("signupBox").style.display="none"
 function login(){
 
 let email=document.getElementById("loginEmail").value
+
 let pass=document.getElementById("loginPass").value
 
 if(localStorage.getItem(email)==pass){
 
-alert("Login successful")
-
 document.getElementById("profile").innerText=email
+
+alert("Login successful")
 
 document.getElementById("loginBox").style.display="none"
 
-}else{
+}
+
+else{
 
 alert("Wrong login")
 
@@ -315,156 +517,13 @@ alert("Wrong login")
 
 }
 
-window.onload=function(){
-setTimeout(()=>{
-document.getElementById("loader").style.display="none"
-},1200)
+function logout(){
+
+document.getElementById("profile").innerText="Guest"
+
 }
 
 </script>
-
-</head>
-
-<body>
-
-<div id="loader" class="loader">
-<h1>Loading Food Express...</h1>
-</div>
-
-<header>
-
-<h2>Food Express</h2>
-
-<nav>
-
-<a href="#">Home</a> <a onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</a> <a onclick="openLogin()">Login</a> <a onclick="openSignup()">Sign Up</a> <a onclick="toggleTheme()">Theme</a>
-
-</nav>
-
-</header>
-
-<div class="hero">
-
-<div>
-
-<h1>Fresh Food Delivered Fast</h1>
-
-<p>Order your favorite dishes online</p>
-
-<button onclick="toggleCart()">View Cart</button>
-
-</div>
-
-<img src="delivery1.png">
-
-</div>
-
-<div class="search">
-
-<input id="searchInput" placeholder="Search food..." onkeyup="searchFood()">
-
-</div>
-
-<div class="menu">
-
-<div class="card">
-<img src="burger.png">
-<h3>Burger</h3>
-<p>$8</p>
-<div class="rating">⭐⭐⭐⭐⭐</div>
-<button onclick="addToCart('Burger',8)">Add</button>
-</div>
-
-<div class="card">
-<img src="pizza.png">
-<h3>Pizza</h3>
-<p>$12</p>
-<div class="rating">⭐⭐⭐⭐⭐</div>
-<button onclick="addToCart('Pizza',12)">Add</button>
-</div>
-
-<div class="card">
-<img src="pasta.png">
-<h3>Pasta</h3>
-<p>$9</p>
-<div class="rating">⭐⭐⭐⭐⭐</div>
-<button onclick="addToCart('Pasta',9)">Add</button>
-</div>
-
-<div class="card">
-<img src="chicken.png">
-<h3>Chicken</h3>
-<p>$10</p>
-<div class="rating">⭐⭐⭐⭐⭐</div>
-<button onclick="addToCart('Chicken',10)">Add</button>
-</div>
-
-</div>
-
-<div id="cartPanel" class="cartPanel">
-
-<h2>Your Cart</h2>
-
-<div id="cartItems"></div>
-
-<div class="checkout">
-
-<h3>Checkout</h3>
-
-<input placeholder="Name">
-<input placeholder="Address">
-<input placeholder="Phone">
-
-<button onclick="placeOrder()">Place Order</button>
-
-<p id="success" class="success">Order placed 🎉</p>
-
-</div>
-
-</div>
-
-<div id="tracker">
-
-<h2>Delivery in Progress 🚚</h2>
-
-<div style="width:80%;height:12px;background:#333;margin:30px auto;border-radius:10px;position:relative">
-
-<div id="progress" style="width:0%;height:100%;background:#f7b500;border-radius:10px"></div>
-
-<img id="scooter" src="scooter.png" style="position:absolute;top:-25px;left:0;width:50px">
-
-</div>
-
-<p id="statusText">Preparing food...</p>
-
-</div>
-
-<div id="loginBox" class="modal">
-
-<h2>Login</h2>
-
-<input id="loginEmail" placeholder="Email"><br><br> <input id="loginPass" type="password" placeholder="Password"><br><br>
-
-<button onclick="login()">Login</button>
-
-</div>
-
-<div id="signupBox" class="modal">
-
-<h2>Sign Up</h2>
-
-<input id="signupEmail" placeholder="Email"><br><br> <input id="signupPass" type="password" placeholder="Password"><br><br>
-
-<button onclick="signup()">Create Account</button>
-
-</div>
-
-<footer>
-
-<p>User: <span id="profile">Guest</span></p>
-<p>© 2026 Food Express</p>
-
-</footer>
 
 </body>
 
