@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 
@@ -9,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
 --primary:#F5A623;
 --bg:#FFF7ED;
@@ -30,7 +30,6 @@ overflow-x:hidden;
 }
 
 /* LOADER */
-
 #loader{
 position:fixed;
 width:100%;
@@ -57,7 +56,6 @@ animation:spin 1s linear infinite;
 }
 
 /* NAVBAR */
-
 header{
 display:flex;
 justify-content:space-between;
@@ -89,7 +87,6 @@ cursor:pointer;
 }
 
 /* HERO */
-
 .hero{
 display:flex;
 justify-content:space-between;
@@ -109,7 +106,6 @@ animation:float 4s infinite ease-in-out;
 }
 
 /* BUTTON */
-
 button{
 background:var(--primary);
 border:none;
@@ -127,7 +123,6 @@ box-shadow:0 8px 18px rgba(0,0,0,.2);
 }
 
 /* FILTERS */
-
 .filters{
 text-align:center;
 margin-top:20px;
@@ -138,7 +133,6 @@ margin:5px;
 }
 
 /* MENU */
-
 .menu{
 max-width:1100px;
 margin:auto;
@@ -169,7 +163,6 @@ object-fit:contain;
 }
 
 /* STEPS */
-
 .steps{
 padding:60px;
 text-align:center;
@@ -190,7 +183,6 @@ box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
 /* TESTIMONIALS */
-
 .testimonials{
 padding:60px;
 background:#fff3e6;
@@ -212,7 +204,6 @@ box-shadow:0 8px 20px rgba(0,0,0,.08);
 }
 
 /* CART */
-
 .cart{
 position:fixed;
 right:-360px;
@@ -231,7 +222,6 @@ right:0;
 }
 
 /* LOGIN MODAL */
-
 .overlay{
 display:none;
 position:fixed;
@@ -266,7 +256,6 @@ margin:8px 0;
 }
 
 /* DELIVERY */
-
 #tracker{
 display:none;
 text-align:center;
@@ -288,7 +277,6 @@ background:var(--primary);
 }
 
 /* FOOTER */
-
 footer{
 text-align:center;
 padding:25px;
@@ -297,13 +285,9 @@ margin-top:40px;
 }
 
 /* MOBILE */
-
 @media(max-width:768px){
-
 .menu-btn{display:block;}
-
 nav{display:none;}
-
 nav.show{
 display:flex;
 flex-direction:column;
@@ -313,18 +297,9 @@ right:20px;
 background:white;
 padding:20px;
 }
-
-.hero{
-flex-direction:column;
-text-align:center;
+.hero{flex-direction:column;text-align:center;}
+.hero img{margin-top:30px;}
 }
-
-.hero img{
-margin-top:30px;
-}
-
-}
-
 </style>
 
 </head>
@@ -343,38 +318,29 @@ margin-top:30px;
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 
 <nav id="nav">
-
 <a onclick="scrollMenu()">Menu</a>
 <a onclick="toggleCart()">Cart (<span id="count">0</span>)</a>
-<a onclick="openLogin()">Login</a>
+<a onclick="openLogin()">User Login</a>
+<a href="admin.html">Admin</a>
 <a onclick="openRegister()">Register</a>
-
 </nav>
 
 </header>
 
 <section class="hero">
-
 <div>
-
 <h1>Fresh Food Delivered Fast</h1>
 <p>Order delicious meals online</p>
-
 <button onclick="scrollMenu()">Browse Menu</button>
-
 </div>
-
 <img src="delivery1.png">
-
 </section>
 
 <div class="filters">
-
 <button onclick="filterFood('all')">All</button>
 <button onclick="filterFood('burger')">Burger</button>
 <button onclick="filterFood('pizza')">Pizza</button>
 <button onclick="filterFood('pasta')">Pasta</button>
-
 </div>
 
 <div class="menu" id="menu">
@@ -382,114 +348,83 @@ margin-top:30px;
 <div class="card burger">
 <img src="burger.png">
 <h3>Burger</h3>
-<p>$8</p>
-<button onclick="addCart('Burger',8)">Add</button>
+<p>₹150</p>
+<button onclick="addCart('Burger',150)">Add</button>
 </div>
 
 <div class="card pizza">
 <img src="pizza.png">
 <h3>Pizza</h3>
-<p>$12</p>
-<button onclick="addCart('Pizza',12)">Add</button>
+<p>₹300</p>
+<button onclick="addCart('Pizza',300)">Add</button>
 </div>
 
 <div class="card pasta">
 <img src="pasta.png">
 <h3>Pasta</h3>
-<p>$9</p>
-<button onclick="addCart('Pasta',9)">Add</button>
+<p>₹200</p>
+<button onclick="addCart('Pasta',200)">Add</button>
 </div>
 
 <div class="card burger">
 <img src="chicken.png">
 <h3>Chicken</h3>
-<p>$10</p>
-<button onclick="addCart('Chicken',10)">Add</button>
+<p>₹250</p>
+<button onclick="addCart('Chicken',250)">Add</button>
 </div>
 
 </div>
 
 <section class="steps">
-
 <h2>How It Works</h2>
-
 <div class="steps-grid">
-
 <div class="step">🍔 Choose your food</div>
 <div class="step">🛒 Add to cart</div>
 <div class="step">🚚 Fast delivery</div>
-
 </div>
-
 </section>
 
 <section class="testimonials">
-
 <h2>Customer Reviews</h2>
-
 <div class="test-grid">
-
 <div class="test">⭐⭐⭐⭐⭐<br>Great food and fast delivery!</div>
 <div class="test">⭐⭐⭐⭐⭐<br>Best pizza I ordered online.</div>
 <div class="test">⭐⭐⭐⭐⭐<br>Very smooth ordering experience.</div>
-
 </div>
-
 </section>
 
 <div class="cart" id="cart">
-
 <h2>Your Cart</h2>
-
 <div id="items"></div>
-
-<h3>Total $<span id="total">0</span></h3>
-
+<h3>Total ₹<span id="total">0</span></h3>
 <input placeholder="Name">
 <input placeholder="Address">
 <input placeholder="Phone">
-
 <button onclick="order()">Place Order</button>
-
 <p id="msg" style="display:none;color:green">Order Confirmed 🎉</p>
-
 </div>
 
 <div id="tracker">
-
 <h2>Delivery Status</h2>
-
 <div class="bar-bg">
 <div class="bar" id="bar"></div>
 </div>
-
 <p id="status">Preparing Food</p>
-
 </div>
 
 <div class="overlay" id="overlay">
-
 <div class="modal">
-
 <span class="close" onclick="closeModal()">✖</span>
-
 <h3 id="modalTitle"></h3>
-
 <input id="email" placeholder="Email">
 <input id="pass" type="password" placeholder="Password">
-
 <button onclick="submitAuth()">Submit</button>
-
 </div>
-
 </div>
 
 <footer>
-
 <p>User: <span id="user">Guest</span></p>
-
 <p>© 2026 Food Express</p>
-
 </footer>
 
 <script>
@@ -499,157 +434,90 @@ window.onload=()=>setTimeout(()=>loader.style.display="none",1200)
 let cart=[]
 let mode="login"
 
-function toggleMenu(){
-nav.classList.toggle("show")
-}
-
-function scrollMenu(){
-menu.scrollIntoView({behavior:"smooth"})
-}
+function toggleMenu(){ nav.classList.toggle("show") }
+function scrollMenu(){ menu.scrollIntoView({behavior:"smooth"}) }
 
 function filterFood(type){
-
 document.querySelectorAll(".card").forEach(c=>{
-
-if(type==="all"||c.classList.contains(type))
-c.style.display="block"
-else
-c.style.display="none"
-
+c.style.display=(type==="all"||c.classList.contains(type))?"block":"none"
 })
-
 }
 
-function toggleCart(){
-cartEl.classList.toggle("open")
-}
+function toggleCart(){ cartEl.classList.toggle("open") }
 
 const cartEl=document.getElementById("cart")
 
 function addCart(name,price){
-
 cart.push({name,price})
-
 update()
-
 }
 
 function update(){
-
 items.innerHTML=""
-
 let total=0
-
 cart.forEach((i,x)=>{
-
 total+=i.price
-
-items.innerHTML+=`${i.name} - $${i.price} <button onclick="removeItem(${x})">x</button><br>`
-
+items.innerHTML+=`${i.name} - ₹${i.price} <button onclick="removeItem(${x})">x</button><br>`
 })
-
 count.innerText=cart.length
 document.getElementById("total").innerText=total
-
 }
 
 function removeItem(i){
-
 cart.splice(i,1)
-
 update()
-
 }
 
 function order(){
-
 msg.style.display="block"
-
 startDelivery()
-
 }
 
 function startDelivery(){
-
 tracker.style.display="block"
-
 let p=0
-
 let x=setInterval(()=>{
-
 p+=10
-
 bar.style.width=p+"%"
-
 if(p==40) status.innerText="Cooking"
-
 if(p==70) status.innerText="Out for delivery"
-
 if(p>=100){
-
 status.innerText="Delivered 🍔"
-
 clearInterval(x)
-
 }
-
 },700)
-
 }
 
 function openLogin(){
-
 mode="login"
-
 modalTitle.innerText="Login"
-
 overlay.style.display="flex"
-
 }
 
 function openRegister(){
-
 mode="register"
-
 modalTitle.innerText="Register"
-
 overlay.style.display="flex"
-
 }
 
-function closeModal(){
-overlay.style.display="none"
-}
+function closeModal(){ overlay.style.display="none" }
 
 function submitAuth(){
-
 let email=document.getElementById("email").value
 let pass=document.getElementById("pass").value
 
 if(mode==="register"){
-
 localStorage.setItem(email,pass)
-
 alert("Account created")
-
 }else{
-
 if(localStorage.getItem(email)===pass){
-
 user.innerText=email
-
 alert("Login successful")
-
 }else{
-
 alert("Wrong login")
-
 }
-
 }
-
 closeModal()
-
 }
 
 </script>
