@@ -1,24 +1,187 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-<title>Admin Panel</title>
+
+<title>Admin Dashboard - Food Express</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--primary:#F5A623;
+--bg:#FFF7ED;
+--dark:#2d2d2d;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:var(--bg);
+color:var(--dark);
+}
+
+/* HEADER (same as main site) */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+background:white;
+box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+h2{
+color:var(--primary);
+}
+
+/* BUTTON */
+button{
+background:var(--primary);
+border:none;
+padding:10px 20px;
+border-radius:25px;
+color:white;
+cursor:pointer;
+font-weight:600;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 18px rgba(0,0,0,.2);
+}
+
+/* DASHBOARD CONTENT */
+.container{
+max-width:1000px;
+margin:40px auto;
+padding:20px;
+}
+
+/* CARDS (same style as menu cards) */
+.card{
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+/* INPUTS */
+input{
+padding:10px;
+margin:5px;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+/* LIST */
+.item{
+padding:10px;
+border-bottom:1px solid #eee;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Admin Dashboard</h1>
-
+<header>
+<h2>Admin Dashboard</h2>
 <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+<!-- ADD FOOD -->
+
+<div class="card">
+<h3>Add Food Item</h3>
+
+<input id="name" placeholder="Food Name">
+<input id="price" placeholder="Price ₹">
+
+<button onclick="addFood()">Add Item</button>
+
+</div>
+
+<!-- FOOD LIST -->
+
+<div class="card">
+<h3>Food Items</h3>
+
+<div id="list"></div>
+
+</div>
+
+</div>
 
 <script>
+
+// protect page
 if(localStorage.getItem("admin")!=="true"){
 window.location.href="admin.html"
+}
+
+// load saved items
+let foods = JSON.parse(localStorage.getItem("foods")) || []
+
+function render(){
+
+list.innerHTML=""
+
+foods.forEach((f,i)=>{
+list.innerHTML+=`
+<div class="item">
+${f.name} - ₹${f.price}
+<button onclick="deleteItem(${i})">Delete</button>
+</div>
+`
+})
+
+}
+
+function addFood(){
+
+let name=document.getElementById("name").value
+let price=document.getElementById("price").value
+
+if(!name || !price){
+alert("Enter details")
+return
+}
+
+foods.push({name,price})
+
+localStorage.setItem("foods",JSON.stringify(foods))
+
+render()
+
+}
+
+function deleteItem(i){
+foods.splice(i,1)
+localStorage.setItem("foods",JSON.stringify(foods))
+render()
 }
 
 function logout(){
 localStorage.removeItem("admin")
 window.location.href="admin.html"
 }
+
+render()
+
 </script>
 
 </body>
